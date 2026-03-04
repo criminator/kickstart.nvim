@@ -164,6 +164,13 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- [[ Tab and Indentation Settings ]]
+-- Set default tab behavior (these can be overridden by guess-indent.nvim)
+vim.o.tabstop = 2 -- Number of spaces a tab counts for
+vim.o.shiftwidth = 2 -- Number of spaces for each indentation level
+vim.o.softtabstop = 2 -- Number of spaces for <Tab> in insert mode
+vim.o.expandtab = true -- Convert tabs to spaces
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -265,6 +272,14 @@ require('lazy').setup(
   {
     -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
     { 'NMAC427/guess-indent.nvim', opts = {} },
+    -- {
+    --   'windwp/nvim-autopairs',
+    --   event = 'InsertEnter',
+    --   config = function() require('nvim-autopairs').setup {} end,
+    -- },
+    { import = 'kickstart.plugins.autopairs' },
+    { import = 'kickstart.plugins.gitsigns' },
+    { import = 'kickstart.plugins.indent_line' },
 
     -- Alternatively, use `config = function() ... end` for full control over the configuration.
     -- If you prefer to call `setup` explicitly, use:
@@ -601,6 +616,13 @@ require('lazy').setup(
         --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
         --  See `:help lsp-config` for information about keys and how to configure
         local servers = {
+
+          clangd = {
+              cmd = {
+                "clangd",
+                "--query-driver=C:/mingw64/bin/g++.exe",
+              },
+            },
           -- clangd = {},
           -- gopls = {},
           -- pyright = {},
@@ -919,9 +941,9 @@ require('lazy').setup(
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  -- -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  -- -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
